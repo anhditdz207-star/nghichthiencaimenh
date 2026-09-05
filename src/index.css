@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Noto Serif';
+  src: local('Noto Serif');
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background-color: #0a0a0a;
+}
+
+::selection {
+  background: #c9a227;
+  color: #0a0a0a;
+}
+
+/* thanh cuộn tối giản */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #121212; }
+::-webkit-scrollbar-thumb { background: #3a3a3a; border-radius: 4px; }
+
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+@keyframes bagua-spin-cw {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(720deg); }
+}
+@keyframes bagua-spin-ccw {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-720deg); }
+}
