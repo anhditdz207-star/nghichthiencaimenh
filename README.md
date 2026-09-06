@@ -50,3 +50,5 @@ npm test        # vitest: thuật toán âm lịch + tam đồng pháp
 
 - Bản Mệnh: đã thêm ngày/tháng sinh (không chỉ năm) — hiện ngày âm lịch + can chi ngày sinh, và mục Tam hợp / Lục hợp / Tứ hành xung theo Chi năm sinh (tuổi hợp làm ăn, hợp cưới hỏi, tuổi nên cân nhắc kỹ).
 - Lịch Âm: bấm vào một ngày bất kỳ để xem Trực (thập nhị trực: Kiến, Trừ, Mãn, Bình, Định, Chấp, Phá, Nguy, Thành, Thu, Khai, Bế) kèm việc nên làm / không nên làm trong ngày đó.
+
+- Trợ Lý: khung chat vui, trả lời dựa **hoàn toàn trên dữ liệu có sẵn** (FAQ Kinh Dịch/Lịch Âm/Mệnh Lý 185 mục + 228 quy tắc Phong Thủy) — không gọi AI ngoài, không bịa thông tin; có câu đùa khi không tìm thấy dữ liệu khớp. Chưa có tên riêng.

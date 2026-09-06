@@ -121,7 +121,6 @@ export default function BaguaWheel({ spinning, size = 260 }: BaguaWheelProps) {
           />
           <circle cx={44} cy={23} r={6} fill="#f6f1e7" />
           <circle cx={44} cy={65} r={6} fill="#0a0a0a" />
-          <circle cx={44} cy={44} r={44} fill="none" stroke="#c9a227" strokeWidth={1.5} />
         </g>
       </g>
     </svg>
