@@ -45,7 +45,7 @@ export default function GieoQuePage() {
     const cast = castHexagram();
     playOneShot("./spin-cast.mp3", 0.8);
     // đợi vòng bát quái xoay xong (tĩnh tại, đúng tinh thần vô vi) rồi mới hiện quẻ
-    await new Promise((res) => setTimeout(res, 7300));
+    await new Promise((res) => setTimeout(res, 6300));
     setResult(cast);
     setLastQuestion(q);
     setHistory(pushHistory({ timestamp: Date.now(), cast, question: q || undefined }));
@@ -80,12 +80,12 @@ export default function GieoQuePage() {
   const sharedChanged = shared?.changedBinary ? getHexagramByBinary(shared.changedBinary) : undefined;
 
   return (
-    <div className="max-w-2xl mx-auto px-4 sm:px-6 py-8 sm:py-10 text-paper-50">
-      <h1 className="font-display text-2xl sm:text-3xl md:text-4xl text-gold-500 text-center mb-2">Gieo Quẻ</h1>
-      <p className="text-center text-paper-100/70 mb-2">
+    <div className="max-w-2xl mx-auto px-4 sm:px-6 py-4 sm:py-6 text-paper-50">
+      <h1 className="font-display text-xl sm:text-2xl md:text-3xl text-gold-500 text-center mb-1">Gieo Quẻ</h1>
+      <p className="text-center text-xs sm:text-sm text-paper-100/70 mb-1">
         Tam đồng pháp — tung ba đồng xu, sáu lần, lập nên một quẻ.
       </p>
-      <div className="text-center mb-8">
+      <div className="text-center mb-3">
         <button
           onClick={() => setShowHistory((v) => !v)}
           className="text-xs text-paper-100/50 hover:text-gold-400 underline underline-offset-2"
@@ -165,9 +165,9 @@ export default function GieoQuePage() {
       )}
 
       {!shared && !result && (
-        <div className="flex flex-col items-center gap-6 sm:gap-8">
+        <div className="flex flex-col items-center gap-3 sm:gap-4">
           <div className="w-full max-w-sm">
-            <p className="italic text-gold-500/80 text-sm text-center mb-1">Nhất Niệm Sở Cầu</p>
+            <p className="italic text-gold-500/80 text-sm text-center mb-0.5">Nhất Niệm Sở Cầu</p>
             <label className="text-xs text-paper-100/50 block mb-1.5 text-center">
               Điều bạn muốn hỏi (tự niệm trong lòng)
             </label>
@@ -187,10 +187,10 @@ export default function GieoQuePage() {
           >
             <BaguaWheel
               spinning={casting}
-              size={240}
-              outerMs={5000} outerRotations={3}
-              midMs={6000} midRotations={2}
-              innerMs={7000} innerRotations={3}
+              size={220}
+              outerMs={4000} outerRotations={3}
+              midMs={5000} midRotations={2}
+              innerMs={6000} innerRotations={3}
             />
           </button>
           <button

@@ -63,3 +63,7 @@ npm test        # vitest: thuật toán âm lịch + tam đồng pháp
 - Gieo Quẻ: vòng bát quái giờ quay nhanh, nhiều vòng hơn (vòng ngoài 3 vòng/5s, vòng giữa 2 vòng/6s, vòng trong 3 vòng/7s) — có thể **bấm thẳng vào vòng bát quái** để gieo, không bắt buộc bấm nút "Gieo quẻ". Nút "Gieo lại" giờ chỉ đưa về màn hình ban đầu (nhập câu hỏi mới), phải bấm gieo lại mới thực sự tung quẻ tiếp.
 - Ô nhập câu hỏi có thêm dòng "*Nhất Niệm Sở Cầu*" (in nghiêng).
 - Footer đổi thành "*Nghịch Thiên Cải Mệnh - Thuận Thiên Giúp Thế - Nhất Tâm Định Vạn Sự*" (in nghiêng).
+
+- Gieo Quẻ: giảm bớt 1 giây mỗi vòng quay (ngoài 4s/3 vòng, giữa 5s/2 vòng, trong 6s/3 vòng), bố cục thu gọn để vừa 1 màn hình ở trạng thái chờ (không cần cuộn), kết quả sau khi gieo vẫn cuộn bình thường.
+- Âm thanh xoay (`spin-intro.mp3`, `spin-cast.mp3`) làm lại: to ngay từ đầu rồi nhỏ dần đều tới cuối (khớp cảm giác bánh xe quay chậm dần), thời lượng khớp lại với thời gian quay mới.
+- Footer thêm dòng "*by Nguyễn Trung*" in nghiêng.

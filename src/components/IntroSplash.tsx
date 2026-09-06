@@ -3,7 +3,7 @@ import BaguaWheel from "./BaguaWheel";
 import { startBgMusic } from "../lib/bgMusic";
 import { playOneShot } from "../lib/sound";
 
-const SPIN_MS = 5000;
+const SPIN_MS = 4000;
 const FADE_MS = 400;
 const SPLIT_MS = 700;
 
