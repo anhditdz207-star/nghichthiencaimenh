@@ -29,7 +29,7 @@ npm test        # vitest: thuật toán âm lịch + tam đồng pháp
 - `src/lib/interpret.ts` — ghép kết quả gieo với dữ liệu quẻ
 - `src/lib/history.ts` — lưu lịch sử gieo quẻ vào localStorage
 - `src/pages/` — 4 trang: Gieo Quẻ, Tra Cứu, Lịch Âm, Bản Mệnh
-- `src/components/` — `HexagramGlyph` (vẽ 6 hào), `TaijiSymbol` (âm dương), `LotusSymbol` (hoa sen)
+- `src/components/` — `HexagramGlyph` (vẽ 6 hào), `Taiji` (âm dương, dùng chung cho logo và vòng bát quái), `LotusSymbol` (hoa sen), `ChatWidget` (bong bóng chat Tiểu Thạch)
 - `src/lib/destiny.ts` — ngũ hành nạp âm, mệnh quái Bát Trạch, màu hợp mệnh
 - `src/lib/hourly.ts` — giờ hoàng đạo theo ngày
 
@@ -51,4 +51,4 @@ npm test        # vitest: thuật toán âm lịch + tam đồng pháp
 - Bản Mệnh: đã thêm ngày/tháng sinh (không chỉ năm) — hiện ngày âm lịch + can chi ngày sinh, và mục Tam hợp / Lục hợp / Tứ hành xung theo Chi năm sinh (tuổi hợp làm ăn, hợp cưới hỏi, tuổi nên cân nhắc kỹ).
 - Lịch Âm: bấm vào một ngày bất kỳ để xem Trực (thập nhị trực: Kiến, Trừ, Mãn, Bình, Định, Chấp, Phá, Nguy, Thành, Thu, Khai, Bế) kèm việc nên làm / không nên làm trong ngày đó.
 
-- Trợ Lý: khung chat vui, trả lời dựa **hoàn toàn trên dữ liệu có sẵn** (FAQ Kinh Dịch/Lịch Âm/Mệnh Lý 185 mục + 228 quy tắc Phong Thủy) — không gọi AI ngoài, không bịa thông tin; có câu đùa khi không tìm thấy dữ liệu khớp. Chưa có tên riêng.
+- **Tiểu Thạch** (trước gọi tạm "Trợ Lý"): bong bóng chat nổi ở góc dưới bên phải, hiện trên mọi trang (không còn là tab riêng). Trả lời dựa **hoàn toàn trên dữ liệu có sẵn** (FAQ Kinh Dịch/Lịch Âm/Mệnh Lý 185 mục + 228 quy tắc Phong Thủy) — không gọi AI ngoài, không bịa thông tin; có câu đùa khi không tìm thấy dữ liệu khớp. Avatar là ảnh viên đá do người dùng cung cấp (`public/tieuthach-avatar.png`).

@@ -1,13 +1,13 @@
 import { useState } from "react";
-import TaijiSymbol from "./components/TaijiSymbol";
+import TaijiSymbol from "./components/Taiji";
 import GieoQuePage from "./pages/GieoQuePage";
 import TraCuuPage from "./pages/TraCuuPage";
 import LichAmPage from "./pages/LichAmPage";
 import BanMenhPage from "./pages/BanMenhPage";
 import PhongThuyPage from "./pages/PhongThuyPage";
-import TroLyPage from "./pages/TroLyPage";
+import ChatWidget from "./components/ChatWidget";
 
-type Tab = "gieo" | "tracuu" | "licham" | "banmenh" | "phongthuy" | "trolý";
+type Tab = "gieo" | "tracuu" | "licham" | "banmenh" | "phongthuy";
 
 const TABS: { key: Tab; label: string }[] = [
   { key: "gieo", label: "Gieo Quẻ" },
@@ -15,7 +15,6 @@ const TABS: { key: Tab; label: string }[] = [
   { key: "licham", label: "Lịch Âm" },
   { key: "banmenh", label: "Bản Mệnh" },
   { key: "phongthuy", label: "Phong Thủy" },
-  { key: "trolý", label: "Trợ Lý" },
 ];
 
 export default function App() {
@@ -53,7 +52,6 @@ export default function App() {
         {tab === "licham" && <LichAmPage />}
         {tab === "banmenh" && <BanMenhPage />}
         {tab === "phongthuy" && <PhongThuyPage />}
-        {tab === "trolý" && <TroLyPage />}
       </main>
 
       <footer className="border-t border-gold-700/20 mt-8">
@@ -61,6 +59,7 @@ export default function App() {
           Hoán Vận
         </div>
       </footer>
+      <ChatWidget />
     </div>
   );
 }

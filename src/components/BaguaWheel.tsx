@@ -1,5 +1,6 @@
 import { TRIGRAMS } from "../data/trigrams";
 import type { TrigramKey } from "../data/types";
+import { TaijiMarks } from "./Taiji";
 
 interface BaguaWheelProps {
   spinning: boolean;
@@ -113,15 +114,7 @@ export default function BaguaWheel({ spinning, size = 260 }: BaguaWheelProps) {
           animation: spinning ? "bagua-spin-ccw 2.8s cubic-bezier(0.33,0,0.2,1) 1" : undefined,
         }}
       >
-        <g transform={`translate(${CX - 44}, ${CY - 44})`}>
-          <circle cx={44} cy={44} r={44} fill="#0a0a0a" />
-          <path
-            d="M44,2 A21,21 0 0,1 44,44 A21,21 0 0,0 44,86 A44,44 0 0,0 44,2 Z"
-            fill="#f6f1e7"
-          />
-          <circle cx={44} cy={23} r={6} fill="#f6f1e7" />
-          <circle cx={44} cy={65} r={6} fill="#0a0a0a" />
-        </g>
+        <TaijiMarks cx={CX} cy={CY} r={44} borderWidth={2.5} />
       </g>
     </svg>
   );
