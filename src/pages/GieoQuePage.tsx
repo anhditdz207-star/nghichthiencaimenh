@@ -45,7 +45,7 @@ export default function GieoQuePage() {
     const cast = castHexagram();
     playOneShot("./spin-cast.mp3", 0.8);
     // đợi vòng bát quái xoay xong (tĩnh tại, đúng tinh thần vô vi) rồi mới hiện quẻ
-    await new Promise((res) => setTimeout(res, 6800));
+    await new Promise((res) => setTimeout(res, 7300));
     setResult(cast);
     setLastQuestion(q);
     setHistory(pushHistory({ timestamp: Date.now(), cast, question: q || undefined }));
@@ -66,6 +66,12 @@ export default function GieoQuePage() {
     } catch {
       window.prompt("Sao chép liên kết chia sẻ:", url);
     }
+  }
+
+  function handleReset() {
+    setResult(null);
+    setLastQuestion("");
+    setShared(null);
   }
 
   const interp = result ? interpretCast(result) : null;
@@ -161,8 +167,9 @@ export default function GieoQuePage() {
       {!shared && !result && (
         <div className="flex flex-col items-center gap-6 sm:gap-8">
           <div className="w-full max-w-sm">
+            <p className="italic text-gold-500/80 text-sm text-center mb-1">Nhất Niệm Sở Cầu</p>
             <label className="text-xs text-paper-100/50 block mb-1.5 text-center">
-              Điều bạn muốn hỏi (tự niệm trong lòng, ví dụ: "hôm nay đi chơi có ổn không")
+              Điều bạn muốn hỏi (tự niệm trong lòng)
             </label>
             <input
               type="text"
@@ -172,9 +179,20 @@ export default function GieoQuePage() {
               className="w-full bg-ink-800 border border-gold-700/40 rounded-full px-4 py-2 text-sm text-center text-paper-50 focus:outline-none focus:border-gold-500"
             />
           </div>
-          <div className="w-full flex justify-center py-2">
-            <BaguaWheel spinning={casting} size={240} durationMs={6500} />
-          </div>
+          <button
+            onClick={handleCast}
+            disabled={casting}
+            aria-label="Chạm vào Thái Cực để gieo quẻ"
+            className="w-full flex justify-center py-2 disabled:cursor-default"
+          >
+            <BaguaWheel
+              spinning={casting}
+              size={240}
+              outerMs={5000} outerRotations={3}
+              midMs={6000} midRotations={2}
+              innerMs={7000} innerRotations={3}
+            />
+          </button>
           <button
             onClick={handleCast}
             disabled={casting}
@@ -236,7 +254,7 @@ export default function GieoQuePage() {
 
           <div className="flex flex-wrap justify-center gap-3 mt-8">
             <button
-              onClick={handleCast}
+              onClick={handleReset}
               className="px-6 py-2 rounded-full border border-gold-700 text-paper-100/80 hover:border-gold-500 hover:text-gold-400 transition-colors"
             >
               Gieo lại

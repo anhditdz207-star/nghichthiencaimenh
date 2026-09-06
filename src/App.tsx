@@ -75,8 +75,8 @@ export default function App() {
       </main>
 
       <footer className="border-t border-gold-700/20 mt-8">
-        <div className="max-w-5xl mx-auto px-6 py-4 text-[11px] text-paper-100/30 text-center">
-          Hoán Vận
+        <div className="max-w-5xl mx-auto px-6 py-4 text-[11px] text-paper-100/40 text-center italic">
+          Nghịch Thiên Cải Mệnh - Thuận Thiên Giúp Thế - Nhất Tâm Định Vạn Sự
         </div>
       </footer>
       <ChatWidget />

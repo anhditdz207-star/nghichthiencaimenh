@@ -59,3 +59,7 @@ npm test        # vitest: thuật toán âm lịch + tam đồng pháp
 - **Âm thanh khi Gieo Quẻ**: vòng bát quái quay chậm lại còn ~6.5 giây, kèm âm thanh xoay (`spin-cast.mp3`) để đồng bộ với thời lượng quay.
 - **Nút tắt/mở nhạc nền**: hình loa nhỏ góc dưới-trái, luôn hiện trên mọi trang.
 - Cả 2 file âm thanh xoay (`spin-intro.mp3`, `spin-cast.mp3`) được cắt và tăng âm lượng vừa phải từ file `mixkit-bike-wheel-spinning-1613.wav` người dùng cung cấp (ffmpeg: trim + volume + fade), không dùng nguyên bản.
+
+- Gieo Quẻ: vòng bát quái giờ quay nhanh, nhiều vòng hơn (vòng ngoài 3 vòng/5s, vòng giữa 2 vòng/6s, vòng trong 3 vòng/7s) — có thể **bấm thẳng vào vòng bát quái** để gieo, không bắt buộc bấm nút "Gieo quẻ". Nút "Gieo lại" giờ chỉ đưa về màn hình ban đầu (nhập câu hỏi mới), phải bấm gieo lại mới thực sự tung quẻ tiếp.
+- Ô nhập câu hỏi có thêm dòng "*Nhất Niệm Sở Cầu*" (in nghiêng).
+- Footer đổi thành "*Nghịch Thiên Cải Mệnh - Thuận Thiên Giúp Thế - Nhất Tâm Định Vạn Sự*" (in nghiêng).
