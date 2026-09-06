@@ -5,6 +5,10 @@ import { TaijiMarks } from "./Taiji";
 interface BaguaWheelProps {
   spinning: boolean;
   size?: number;
+  /** Tổng thời lượng quay (ms) — 3 vòng sẽ quay theo tỉ lệ thời gian gốc, mặc định giữ nguyên như cũ */
+  durationMs?: number;
+  /** Làm Thái Cực nổi bật hơn (glow nhẹ), dùng cho màn chào */
+  taijiGlow?: boolean;
 }
 
 // Thứ tự Tiên Thiên Bát Quái quanh vòng tròn, bắt đầu từ đỉnh (0°), theo chiều kim đồng hồ
@@ -71,7 +75,12 @@ function OuterTicks({ count, radius }: { count: number; radius: number }) {
   );
 }
 
-export default function BaguaWheel({ spinning, size = 260 }: BaguaWheelProps) {
+export default function BaguaWheel({ spinning, size = 260, durationMs = 3600, taijiGlow = false }: BaguaWheelProps) {
+  // Giữ nguyên tỉ lệ thời gian giữa 3 vòng như thiết kế gốc (3.6s / 3.2s / 2.8s), scale theo durationMs
+  const outerS = (durationMs / 1000).toFixed(2);
+  const midS = ((durationMs * (3.2 / 3.6)) / 1000).toFixed(2);
+  const innerS = ((durationMs * (2.8 / 3.6)) / 1000).toFixed(2);
+
   return (
     <svg
       viewBox="0 0 300 300"
@@ -87,7 +96,7 @@ export default function BaguaWheel({ spinning, size = 260 }: BaguaWheelProps) {
         style={{
           transformBox: "view-box" as never,
           transformOrigin: "150px 150px",
-          animation: spinning ? "bagua-spin-ccw 3.6s cubic-bezier(0.33,0,0.2,1) 1" : undefined,
+          animation: spinning ? `bagua-spin-ccw ${outerS}s cubic-bezier(0.33,0,0.2,1) 1` : undefined,
         }}
       >
         <OuterTicks count={64} radius={142} />
@@ -98,7 +107,7 @@ export default function BaguaWheel({ spinning, size = 260 }: BaguaWheelProps) {
         style={{
           transformBox: "view-box" as never,
           transformOrigin: "150px 150px",
-          animation: spinning ? "bagua-spin-cw 3.2s cubic-bezier(0.33,0,0.2,1) 1" : undefined,
+          animation: spinning ? `bagua-spin-cw ${midS}s cubic-bezier(0.33,0,0.2,1) 1` : undefined,
         }}
       >
         {RING_ORDER.map(({ key, angle }) => (
@@ -106,15 +115,17 @@ export default function BaguaWheel({ spinning, size = 260 }: BaguaWheelProps) {
         ))}
       </g>
 
-      {/* vòng trong cùng: Thái Cực, quay trái */}
+      {/* vòng trong cùng: Thái Cực, quay trái (ngược chiều với vòng quái giữa) */}
       <g
         style={{
           transformBox: "view-box" as never,
           transformOrigin: "150px 150px",
-          animation: spinning ? "bagua-spin-ccw 2.8s cubic-bezier(0.33,0,0.2,1) 1" : undefined,
+          animation: spinning ? `bagua-spin-ccw ${innerS}s cubic-bezier(0.33,0,0.2,1) 1` : undefined,
         }}
       >
-        <TaijiMarks cx={CX} cy={CY} r={44} borderWidth={2.5} />
+        <g style={taijiGlow ? { filter: "drop-shadow(0 0 10px rgba(201,162,39,0.85))" } : undefined}>
+          <TaijiMarks cx={CX} cy={CY} r={44} borderWidth={2.5} />
+        </g>
       </g>
     </svg>
   );

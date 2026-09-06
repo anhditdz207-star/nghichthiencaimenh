@@ -29,7 +29,7 @@ npm test        # vitest: thuật toán âm lịch + tam đồng pháp
 - `src/lib/interpret.ts` — ghép kết quả gieo với dữ liệu quẻ
 - `src/lib/history.ts` — lưu lịch sử gieo quẻ vào localStorage
 - `src/pages/` — 4 trang: Gieo Quẻ, Tra Cứu, Lịch Âm, Bản Mệnh
-- `src/components/` — `HexagramGlyph` (vẽ 6 hào), `Taiji` (âm dương, dùng chung cho logo và vòng bát quái), `LotusSymbol` (hoa sen), `ChatWidget` (bong bóng chat Tiểu Thạch)
+- `src/components/` — `HexagramGlyph` (vẽ 6 hào), `Taiji` (âm dương, dùng chung cho logo và vòng bát quái), `LotusSymbol` (hoa sen), `ChatWidget` (bong bóng chat Tiểu Thạch), `IntroSplash` (màn chào), `MusicToggle` (nút nhạc nền)
 - `src/lib/destiny.ts` — ngũ hành nạp âm, mệnh quái Bát Trạch, màu hợp mệnh
 - `src/lib/hourly.ts` — giờ hoàng đạo theo ngày
 
@@ -52,3 +52,10 @@ npm test        # vitest: thuật toán âm lịch + tam đồng pháp
 - Lịch Âm: bấm vào một ngày bất kỳ để xem Trực (thập nhị trực: Kiến, Trừ, Mãn, Bình, Định, Chấp, Phá, Nguy, Thành, Thu, Khai, Bế) kèm việc nên làm / không nên làm trong ngày đó.
 
 - **Tiểu Thạch** (trước gọi tạm "Trợ Lý"): bong bóng chat nổi ở góc dưới bên phải, hiện trên mọi trang (không còn là tab riêng). Trả lời dựa **hoàn toàn trên dữ liệu có sẵn** (FAQ Kinh Dịch/Lịch Âm/Mệnh Lý 185 mục + 228 quy tắc Phong Thủy) — không gọi AI ngoài, không bịa thông tin; có câu đùa khi không tìm thấy dữ liệu khớp. Avatar là ảnh viên đá do người dùng cung cấp (`public/tieuthach-avatar.png`).
+
+- Gieo Quẻ: có thêm ô ghi lại **việc muốn hỏi** (tự niệm trong lòng, không ảnh hưởng thuật toán ngẫu nhiên) và mục **Lịch sử** xem lại các lượt gieo trước (lưu trong máy, tối đa 50 lượt, có nút xoá).
+
+- **Màn chào (intro)**: hiện 1 lần mỗi phiên trình duyệt (dùng sessionStorage) — chạm vào Thái Cực đang xoay để vào web chính. Bấm vào: quẻ (vòng giữa) và Thái Cực xoay ngược chiều nhau ~5 giây kèm âm thanh xoay (`spin-intro.mp3`), đồng thời nhạc nền (`bg-music.mp3`, lặp vô hạn) bắt đầu phát; sau đó mờ dần rồi màn đen tách đôi mở ra trang chính. Tải lại trang trong cùng phiên sẽ vào thẳng, không cần chạm lại.
+- **Âm thanh khi Gieo Quẻ**: vòng bát quái quay chậm lại còn ~6.5 giây, kèm âm thanh xoay (`spin-cast.mp3`) để đồng bộ với thời lượng quay.
+- **Nút tắt/mở nhạc nền**: hình loa nhỏ góc dưới-trái, luôn hiện trên mọi trang.
+- Cả 2 file âm thanh xoay (`spin-intro.mp3`, `spin-cast.mp3`) được cắt và tăng âm lượng vừa phải từ file `mixkit-bike-wheel-spinning-1613.wav` người dùng cung cấp (ffmpeg: trim + volume + fade), không dùng nguyên bản.

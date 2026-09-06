@@ -3,6 +3,7 @@ import type { CastResult } from "./coin-toss";
 export interface HistoryEntry {
   timestamp: number;
   cast: CastResult;
+  question?: string;
 }
 
 const KEY = "kinhdich.history.v1";

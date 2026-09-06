@@ -6,6 +6,10 @@ import LichAmPage from "./pages/LichAmPage";
 import BanMenhPage from "./pages/BanMenhPage";
 import PhongThuyPage from "./pages/PhongThuyPage";
 import ChatWidget from "./components/ChatWidget";
+import MusicToggle from "./components/MusicToggle";
+import IntroSplash from "./components/IntroSplash";
+
+const ENTER_KEY = "hoanvan-entered";
 
 type Tab = "gieo" | "tracuu" | "licham" | "banmenh" | "phongthuy";
 
@@ -19,6 +23,22 @@ const TABS: { key: Tab; label: string }[] = [
 
 export default function App() {
   const [tab, setTab] = useState<Tab>("gieo");
+  const [entered, setEntered] = useState(() => {
+    try {
+      return sessionStorage.getItem(ENTER_KEY) === "1";
+    } catch {
+      return true;
+    }
+  });
+
+  function handleEnter() {
+    try {
+      sessionStorage.setItem(ENTER_KEY, "1");
+    } catch {
+      // bỏ qua nếu storage bị chặn
+    }
+    setEntered(true);
+  }
 
   return (
     <div className="min-h-screen bg-ink-950 text-paper-50 flex flex-col">
@@ -60,6 +80,8 @@ export default function App() {
         </div>
       </footer>
       <ChatWidget />
+      <MusicToggle />
+      {!entered && <IntroSplash onEnter={handleEnter} />}
     </div>
   );
 }

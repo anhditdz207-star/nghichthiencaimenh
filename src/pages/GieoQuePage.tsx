@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { castHexagram, type CastResult } from "../lib/coin-toss";
 import { interpretCast } from "../lib/interpret";
-import { pushHistory } from "../lib/history";
+import { pushHistory, loadHistory, clearHistory, type HistoryEntry } from "../lib/history";
 import { buildShareUrl, parseShareUrl } from "../lib/share";
 import { getHexagramByBinary } from "../data";
 import HexagramGlyph from "../components/HexagramGlyph";
 import BaguaWheel from "../components/BaguaWheel";
+
+import { playOneShot } from "../lib/sound";
 
 const SUM_LABEL: Record<number, string> = {
   6: "Lão âm — hào động",
@@ -19,6 +21,10 @@ export default function GieoQuePage() {
   const [result, setResult] = useState<CastResult | null>(null);
   const [copied, setCopied] = useState(false);
   const [shared, setShared] = useState(() => parseShareUrl(window.location.search));
+  const [question, setQuestion] = useState("");
+  const [lastQuestion, setLastQuestion] = useState("");
+  const [showHistory, setShowHistory] = useState(false);
+  const [history, setHistory] = useState<HistoryEntry[]>(() => loadHistory());
 
   useEffect(() => {
     if (copied) {
@@ -34,11 +40,15 @@ export default function GieoQuePage() {
     }
     setCasting(true);
     setResult(null);
+    const q = question.trim();
+    setQuestion("");
     const cast = castHexagram();
+    playOneShot("./spin-cast.mp3", 0.8);
     // đợi vòng bát quái xoay xong (tĩnh tại, đúng tinh thần vô vi) rồi mới hiện quẻ
-    await new Promise((res) => setTimeout(res, 3700));
+    await new Promise((res) => setTimeout(res, 6800));
     setResult(cast);
-    pushHistory({ timestamp: Date.now(), cast });
+    setLastQuestion(q);
+    setHistory(pushHistory({ timestamp: Date.now(), cast, question: q || undefined }));
     setCasting(false);
   }
 
@@ -66,9 +76,55 @@ export default function GieoQuePage() {
   return (
     <div className="max-w-2xl mx-auto px-4 sm:px-6 py-8 sm:py-10 text-paper-50">
       <h1 className="font-display text-2xl sm:text-3xl md:text-4xl text-gold-500 text-center mb-2">Gieo Quẻ</h1>
-      <p className="text-center text-paper-100/70 mb-10">
+      <p className="text-center text-paper-100/70 mb-2">
         Tam đồng pháp — tung ba đồng xu, sáu lần, lập nên một quẻ.
       </p>
+      <div className="text-center mb-8">
+        <button
+          onClick={() => setShowHistory((v) => !v)}
+          className="text-xs text-paper-100/50 hover:text-gold-400 underline underline-offset-2"
+        >
+          {showHistory ? "Đóng lịch sử" : `Lịch sử (${history.length})`}
+        </button>
+      </div>
+
+      {showHistory && (
+        <div className="mb-10 bg-ink-900/60 border border-gold-700/40 rounded-lg p-4 max-h-80 overflow-y-auto">
+          {history.length === 0 ? (
+            <p className="text-sm text-paper-100/50 text-center py-4">Chưa có lượt gieo quẻ nào.</p>
+          ) : (
+            <>
+              <ul className="space-y-3">
+                {history.map((h, i) => {
+                  const hInterp = interpretCast(h.cast);
+                  const d = new Date(h.timestamp);
+                  return (
+                    <li key={i} className="text-sm border-b border-gold-700/20 pb-2 last:border-0">
+                      <p className="text-paper-100/40 text-xs">
+                        {d.toLocaleDateString("vi-VN")} {d.toLocaleTimeString("vi-VN", { hour: "2-digit", minute: "2-digit" })}
+                      </p>
+                      {h.question && <p className="text-paper-100/90 italic">"{h.question}"</p>}
+                      <p className="text-gold-400">
+                        {hInterp.primary.name}
+                        {hInterp.changed ? ` → ${hInterp.changed.name}` : ""}
+                      </p>
+                    </li>
+                  );
+                })}
+              </ul>
+              <button
+                onClick={() => {
+                  clearHistory();
+                  setHistory([]);
+                }}
+                className="mt-3 text-xs text-vermil-500 hover:underline"
+              >
+                Xoá toàn bộ lịch sử
+              </button>
+            </>
+          )}
+        </div>
+      )}
 
       {shared && sharedPrimary && !result && (
         <div className="mb-10">
@@ -104,8 +160,20 @@ export default function GieoQuePage() {
 
       {!shared && !result && (
         <div className="flex flex-col items-center gap-6 sm:gap-8">
+          <div className="w-full max-w-sm">
+            <label className="text-xs text-paper-100/50 block mb-1.5 text-center">
+              Điều bạn muốn hỏi (tự niệm trong lòng, ví dụ: "hôm nay đi chơi có ổn không")
+            </label>
+            <input
+              type="text"
+              value={question}
+              onChange={(e) => setQuestion(e.target.value)}
+              placeholder="Việc muốn hỏi (không bắt buộc)…"
+              className="w-full bg-ink-800 border border-gold-700/40 rounded-full px-4 py-2 text-sm text-center text-paper-50 focus:outline-none focus:border-gold-500"
+            />
+          </div>
           <div className="w-full flex justify-center py-2">
-            <BaguaWheel spinning={casting} size={240} />
+            <BaguaWheel spinning={casting} size={240} durationMs={6500} />
           </div>
           <button
             onClick={handleCast}
@@ -115,6 +183,10 @@ export default function GieoQuePage() {
             {casting ? "Đang gieo…" : "Gieo quẻ"}
           </button>
         </div>
+      )}
+
+      {result && interp && lastQuestion && (
+        <p className="text-center text-sm text-paper-100/60 italic mb-4">Việc hỏi: "{lastQuestion}"</p>
       )}
 
       {result && interp && (
