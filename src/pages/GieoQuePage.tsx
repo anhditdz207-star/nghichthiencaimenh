@@ -204,7 +204,7 @@ export default function GieoQuePage() {
       )}
 
       {result && interp && lastQuestion && (
-        <p className="text-center text-sm text-paper-100/60 italic mb-4">Việc hỏi: "{lastQuestion}"</p>
+        <p className="text-center text-sm text-paper-100/60 italic mb-4 text-pretty px-2">Việc hỏi: "{lastQuestion}"</p>
       )}
 
       {result && interp && (
