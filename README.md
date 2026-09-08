@@ -67,3 +67,11 @@ npm test        # vitest: thuật toán âm lịch + tam đồng pháp
 - Gieo Quẻ: giảm bớt 1 giây mỗi vòng quay (ngoài 4s/3 vòng, giữa 5s/2 vòng, trong 6s/3 vòng), bố cục thu gọn để vừa 1 màn hình ở trạng thái chờ (không cần cuộn), kết quả sau khi gieo vẫn cuộn bình thường.
 - Âm thanh xoay (`spin-intro.mp3`, `spin-cast.mp3`) làm lại: to ngay từ đầu rồi nhỏ dần đều tới cuối (khớp cảm giác bánh xe quay chậm dần), thời lượng khớp lại với thời gian quay mới.
 - Footer thêm dòng "*by Nguyễn Trung*" in nghiêng.
+
+- Tiểu Thạch giờ có thêm lớp "trò chuyện cơ bản" (`data/smalltalk.ts`, tách riêng khỏi FAQ kiến thức): chào hỏi, cảm ơn, tạm biệt, tự giới thiệu, biết ai là chủ web (Nguyễn Trung Nguyên), xác nhận không phải AI thật và hoàn toàn miễn phí, cùng vài câu hướng dẫn dùng web cơ bản (gieo quẻ, xem lịch sử, tắt nhạc...). Vẫn 100% dữ liệu tĩnh, không gọi AI/API trả phí nào.
+
+- Tiểu Thạch: khi không tìm thấy dữ liệu khớp, kèm thêm link "🔍 Tìm trên Google" (tự tạo link tìm kiếm, không gọi API tìm kiếm trả phí nào).
+- Bấm vào chữ "Hoán Vận"/biểu tượng âm dương ở header sẽ tải lại trang.
+- Trang Gieo Quẻ: thêm nút chuyển phương pháp kiểu viên thuốc (góc trên-phải) giữa **Tam Đồng Pháp** (mặc định, đầy đủ) và **Mai Hoa Dịch Số** (khung "sắp ra mắt", thuật toán chưa xây — mặc định luôn quay lại Tam Đồng Pháp mỗi khi tải trang).
+
+- **Mai Hoa Dịch Số** đã hoàn thành (không còn "sắp ra mắt"): lập quẻ theo thời điểm (năm/tháng/ngày/giờ âm lịch, mặc định dùng thời điểm hiện tại hoặc tự chọn), tính quẻ chính + quẻ biến, xác định Thể/Dụng và luận ngũ hành sinh khắc (5 trường hợp: đồng hành, Thể sinh Dụng, Dụng sinh Thể, Thể khắc Dụng, Dụng khắc Thể). Công thức đã đối chiếu với ví dụ mẫu và có 9 unit test riêng (`lib/maihoa.ts`, `lib/__tests__/maihoa.test.ts`).

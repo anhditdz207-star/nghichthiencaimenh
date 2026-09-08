@@ -6,6 +6,7 @@ interface Message {
   role: "bot" | "user";
   text: string;
   sourceLabel?: string;
+  link?: { url: string; label: string };
 }
 
 let nextId = 1;
@@ -30,7 +31,7 @@ export default function ChatWidget() {
     if (!text) return;
     const userMsg: Message = { id: nextId++, role: "user", text };
     const answer = askAssistant(text);
-    const botMsg: Message = { id: nextId++, role: "bot", text: answer.text, sourceLabel: answer.sourceLabel };
+    const botMsg: Message = { id: nextId++, role: "bot", text: answer.text, sourceLabel: answer.sourceLabel, link: answer.link };
     setMessages((prev) => [...prev, userMsg, botMsg]);
     setInput("");
   }
@@ -69,6 +70,16 @@ export default function ChatWidget() {
                 >
                   {m.text}
                   {m.sourceLabel && <p className="text-[10px] text-jade-400 mt-1.5">Nguồn: {m.sourceLabel}</p>}
+                  {m.link && (
+                    <a
+                      href={m.link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block text-[11px] text-gold-400 underline underline-offset-2 mt-1.5"
+                    >
+                      🔍 {m.link.label}
+                    </a>
+                  )}
                 </div>
               </div>
             ))}

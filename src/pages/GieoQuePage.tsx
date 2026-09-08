@@ -6,6 +6,8 @@ import { buildShareUrl, parseShareUrl } from "../lib/share";
 import { getHexagramByBinary } from "../data";
 import HexagramGlyph from "../components/HexagramGlyph";
 import BaguaWheel from "../components/BaguaWheel";
+import MethodToggle from "../components/MethodToggle";
+import MaiHoaPage from "./MaiHoaPage";
 
 import { playOneShot } from "../lib/sound";
 
@@ -17,6 +19,7 @@ const SUM_LABEL: Record<number, string> = {
 };
 
 export default function GieoQuePage() {
+  const [method, setMethod] = useState<"tamdong" | "maihoa">("tamdong");
   const [casting, setCasting] = useState(false);
   const [result, setResult] = useState<CastResult | null>(null);
   const [copied, setCopied] = useState(false);
@@ -80,7 +83,15 @@ export default function GieoQuePage() {
   const sharedChanged = shared?.changedBinary ? getHexagramByBinary(shared.changedBinary) : undefined;
 
   return (
-    <div className="max-w-2xl mx-auto px-4 sm:px-6 py-4 sm:py-6 text-paper-50">
+    <div className="relative max-w-2xl mx-auto px-4 sm:px-6 py-4 sm:py-6 text-paper-50">
+      <div className="absolute top-3 right-3 sm:top-5 sm:right-5 z-10">
+        <MethodToggle value={method} onChange={setMethod} />
+      </div>
+
+      {method === "maihoa" && <MaiHoaPage />}
+
+      {method === "tamdong" && (
+    <>
       <h1 className="font-display text-xl sm:text-2xl md:text-3xl text-gold-500 text-center mb-1">Gieo Quẻ</h1>
       <p className="text-center text-xs sm:text-sm text-paper-100/70 mb-1">
         Tam đồng pháp — tung ba đồng xu, sáu lần, lập nên một quẻ.
@@ -267,6 +278,8 @@ export default function GieoQuePage() {
             </button>
           </div>
         </div>
+      )}
+    </>
       )}
     </div>
   );

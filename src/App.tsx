@@ -44,10 +44,14 @@ export default function App() {
     <div className="min-h-screen bg-ink-950 text-paper-50 flex flex-col">
       <header className="border-b border-gold-700/30 sticky top-0 bg-ink-950/95 backdrop-blur z-10">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-          <div className="flex items-center gap-2.5 justify-center sm:justify-start">
+          <button
+            onClick={() => window.location.reload()}
+            className="flex items-center gap-2.5 justify-center sm:justify-start"
+            aria-label="Tải lại trang Hoán Vận"
+          >
             <TaijiSymbol size={26} />
             <span className="font-display text-lg sm:text-xl tracking-wide text-paper-50">Hoán Vận</span>
-          </div>
+          </button>
           <nav className="flex gap-1 justify-center sm:justify-end overflow-x-auto no-scrollbar -mx-1 px-1">
             {TABS.map((t) => (
               <button

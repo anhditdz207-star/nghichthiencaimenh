@@ -2,6 +2,7 @@ import { FAQ_ITEMS, FAQ_CATEGORY_LABEL, type FaqItem } from "../data/faq";
 import { FENGSHUI_RULES } from "../data/fengshui";
 import type { FengShuiRule } from "../data/fengshui-types";
 import { VERDICT_LABEL } from "../data/fengshui-types";
+import { SMALL_TALK } from "../data/smalltalk";
 
 function normalize(s: string): string {
   return s
@@ -27,9 +28,29 @@ function pickRandom<T>(arr: T[]): T {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
+function stripPunct(s: string): string {
+  return s.replace(/[!?.,;:'"…]+/g, " ").replace(/\s+/g, " ").trim();
+}
+
+/** Khớp câu chào hỏi / trò chuyện cơ bản — chỉ nhận khi câu khá ngắn và khớp gần đúng toàn bộ,
+ * để tránh nhận nhầm với câu hỏi kiến thức thật sự. */
+function matchSmallTalk(inputNorm: string): string | null {
+  const clean = stripPunct(inputNorm);
+  if (!clean || clean.split(" ").length > 6) return null;
+  for (const item of SMALL_TALK) {
+    for (const trig of item.triggers) {
+      if (clean === trig || clean.startsWith(trig + " ") || trig.startsWith(clean + " ")) {
+        return pickRandom(item.answers);
+      }
+    }
+  }
+  return null;
+}
+
 export interface AssistantAnswer {
   text: string;
   sourceLabel?: string;
+  link?: { url: string; label: string };
 }
 
 interface ScoredFaq { kind: "faq"; item: FaqItem; score: number }
@@ -99,6 +120,10 @@ function formatRuleAnswer(item: FengShuiRule): string {
   return text;
 }
 
+function googleSearchLink(query: string): { url: string; label: string } {
+  return { url: `https://www.google.com/search?q=${encodeURIComponent(query)}`, label: "Tìm trên Google" };
+}
+
 /** Trả lời dựa hoàn toàn trên dữ liệu có sẵn — không gọi AI, không bịa thông tin ngoài dữ liệu. */
 export function askAssistant(userInput: string): AssistantAnswer {
   const trimmed = userInput.trim();
@@ -106,6 +131,12 @@ export function askAssistant(userInput: string): AssistantAnswer {
     return { text: "Bạn hỏi mình gì đi chứ, đừng ngại 😊" };
   }
   const inputNorm = normalize(trimmed);
+
+  const smallTalk = matchSmallTalk(inputNorm);
+  if (smallTalk) {
+    return { text: smallTalk };
+  }
+
   const words = meaningfulWords(inputNorm.split(/\s+/));
 
   const scored: Scored[] = [];
@@ -119,14 +150,14 @@ export function askAssistant(userInput: string): AssistantAnswer {
   }
 
   if (scored.length === 0) {
-    return { text: pickRandom(FALLBACKS) };
+    return { text: pickRandom(FALLBACKS), link: googleSearchLink(trimmed) };
   }
 
   scored.sort((a, b) => b.score - a.score);
   const best = scored[0];
   const MIN_SCORE = 4;
   if (best.score < MIN_SCORE) {
-    return { text: pickRandom(FALLBACKS) };
+    return { text: pickRandom(FALLBACKS), link: googleSearchLink(trimmed) };
   }
 
   if (best.kind === "faq") {

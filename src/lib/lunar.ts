@@ -225,6 +225,11 @@ export function canChiNam(lunarYear: number): string {
   return `${CAN[(lunarYear + 6) % 10]} ${CHI[(lunarYear + 8) % 12]}`;
 }
 
+/** Chỉ số Địa Chi của năm âm lịch, quy ước Tý=1 ... Hợi=12 (dùng cho Mai Hoa Dịch Số) */
+export function chiNamIndex1(lunarYear: number): number {
+  return ((lunarYear + 8) % 12) + 1;
+}
+
 export function canChiThang(lunarMonth: number, lunarYear: number): string {
   const canYearIdx = (lunarYear + 6) % 10;
   const canIdx = (((canYearIdx * 2 + lunarMonth + 1) % 10) + 10) % 10;
