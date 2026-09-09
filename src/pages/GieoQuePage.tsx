@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, lazy, Suspense, useState } from "react";
 import { castHexagram, type CastResult } from "../lib/coin-toss";
 import { interpretCast } from "../lib/interpret";
 import { pushHistory, loadHistory, clearHistory, type HistoryEntry } from "../lib/history";
@@ -7,7 +7,7 @@ import { getHexagramByBinary } from "../data";
 import HexagramGlyph from "../components/HexagramGlyph";
 import BaguaWheel from "../components/BaguaWheel";
 import MethodToggle from "../components/MethodToggle";
-import MaiHoaPage from "./MaiHoaPage";
+const MaiHoaPage = lazy(() => import("./MaiHoaPage"));
 
 import { playOneShot } from "../lib/sound";
 
@@ -88,7 +88,11 @@ export default function GieoQuePage() {
         <MethodToggle value={method} onChange={setMethod} />
       </div>
 
-      {method === "maihoa" && <MaiHoaPage />}
+      {method === "maihoa" && (
+        <Suspense fallback={<div className="py-20" />}>
+          <MaiHoaPage />
+        </Suspense>
+      )}
 
       {method === "tamdong" && (
     <>
@@ -279,6 +283,9 @@ export default function GieoQuePage() {
           </div>
         </div>
       )}
+      <p className="text-center text-[11px] text-paper-100/40 italic mt-6">
+        Tam Đồng Pháp mang tính tham khảo, không phải kết luận cố định.
+      </p>
     </>
       )}
     </div>

@@ -1,13 +1,14 @@
-import { useState } from "react";
+import { lazy, Suspense, useState } from "react";
 import TaijiSymbol from "./components/Taiji";
-import GieoQuePage from "./pages/GieoQuePage";
-import TraCuuPage from "./pages/TraCuuPage";
-import LichAmPage from "./pages/LichAmPage";
-import BanMenhPage from "./pages/BanMenhPage";
-import PhongThuyPage from "./pages/PhongThuyPage";
-import ChatWidget from "./components/ChatWidget";
 import MusicToggle from "./components/MusicToggle";
 import IntroSplash from "./components/IntroSplash";
+
+const GieoQuePage = lazy(() => import("./pages/GieoQuePage"));
+const TraCuuPage = lazy(() => import("./pages/TraCuuPage"));
+const LichAmPage = lazy(() => import("./pages/LichAmPage"));
+const BanMenhPage = lazy(() => import("./pages/BanMenhPage"));
+const PhongThuyPage = lazy(() => import("./pages/PhongThuyPage"));
+const ChatWidget = lazy(() => import("./components/ChatWidget"));
 
 const ENTER_KEY = "hoanvan-entered";
 
@@ -71,11 +72,13 @@ export default function App() {
       </header>
 
       <main className="flex-1">
-        {tab === "gieo" && <GieoQuePage />}
-        {tab === "tracuu" && <TraCuuPage />}
-        {tab === "licham" && <LichAmPage />}
-        {tab === "banmenh" && <BanMenhPage />}
-        {tab === "phongthuy" && <PhongThuyPage />}
+        <Suspense fallback={<div className="py-20" />}>
+          {tab === "gieo" && <GieoQuePage />}
+          {tab === "tracuu" && <TraCuuPage />}
+          {tab === "licham" && <LichAmPage />}
+          {tab === "banmenh" && <BanMenhPage />}
+          {tab === "phongthuy" && <PhongThuyPage />}
+        </Suspense>
       </main>
 
       <footer className="border-t border-gold-700/20 mt-8">
@@ -84,7 +87,9 @@ export default function App() {
           <p>by Nguyễn Trung Nguyên</p>
         </div>
       </footer>
-      <ChatWidget />
+      <Suspense fallback={null}>
+        <ChatWidget />
+      </Suspense>
       <MusicToggle />
       {!entered && <IntroSplash onEnter={handleEnter} />}
     </div>

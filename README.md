@@ -78,3 +78,7 @@ npm test        # vitest: thuật toán âm lịch + tam đồng pháp
 
 - Sửa lỗi hiển thị di động: nút chuyển phương pháp (Tam Đồng Pháp/Mai Hoa) trước dùng `absolute` nên chồng lên header khi cuộn — đổi sang nằm trong luồng bình thường ở đầu trang, không còn chồng chéo; rút gọn nhãn trên màn hình hẹp. Footer thêm khoảng đệm dưới để không bị 2 nút nổi (Tiểu Thạch, nhạc) che chữ.
 - Phong Thủy: **bỏ hẳn ô tải ảnh** (không có tác dụng thực tế, sẽ nâng cấp hợp lý hơn vào Tiểu Thạch sau này nếu có điều kiện) — chỉ còn tìm kiếm theo từ khoá, ô tìm kiếm được làm nổi bật hơn (to hơn, có icon kính lúp) ở đầu trang.
+
+- Sửa lỗi tràn viên nang chuyển phương pháp (2 nút chữ dài ngắn khác nhau nhưng thanh trượt ép cứng 50/50) — bỏ kiểu trượt, tô màu trực tiếp theo nút đang chọn.
+- Thêm dòng "Tam Đồng Pháp mang tính tham khảo, không phải kết luận cố định." ở cuối phần Gieo Quẻ, đồng bộ với dòng tương tự đã có ở Mai Hoa.
+- **Tối ưu bundle JS**: tách nhỏ từng trang bằng `React.lazy` + `Suspense` (Gieo Quẻ, Tra Cứu, Lịch Âm, Bản Mệnh, Phong Thủy, Mai Hoa, Tiểu Thạch đều tải riêng khi cần). Bundle chính giảm từ ~500KB xuống còn ~200KB (gzip ~64KB), không còn cảnh báo "chunk quá lớn" khi build.
