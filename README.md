@@ -75,3 +75,6 @@ npm test        # vitest: thuật toán âm lịch + tam đồng pháp
 - Trang Gieo Quẻ: thêm nút chuyển phương pháp kiểu viên thuốc (góc trên-phải) giữa **Tam Đồng Pháp** (mặc định, đầy đủ) và **Mai Hoa Dịch Số** (khung "sắp ra mắt", thuật toán chưa xây — mặc định luôn quay lại Tam Đồng Pháp mỗi khi tải trang).
 
 - **Mai Hoa Dịch Số** đã hoàn thành (không còn "sắp ra mắt"): lập quẻ theo thời điểm (năm/tháng/ngày/giờ âm lịch, mặc định dùng thời điểm hiện tại hoặc tự chọn), tính quẻ chính + quẻ biến, xác định Thể/Dụng và luận ngũ hành sinh khắc (5 trường hợp: đồng hành, Thể sinh Dụng, Dụng sinh Thể, Thể khắc Dụng, Dụng khắc Thể). Công thức đã đối chiếu với ví dụ mẫu và có 9 unit test riêng (`lib/maihoa.ts`, `lib/__tests__/maihoa.test.ts`).
+
+- Sửa lỗi hiển thị di động: nút chuyển phương pháp (Tam Đồng Pháp/Mai Hoa) trước dùng `absolute` nên chồng lên header khi cuộn — đổi sang nằm trong luồng bình thường ở đầu trang, không còn chồng chéo; rút gọn nhãn trên màn hình hẹp. Footer thêm khoảng đệm dưới để không bị 2 nút nổi (Tiểu Thạch, nhạc) che chữ.
+- Phong Thủy: **bỏ hẳn ô tải ảnh** (không có tác dụng thực tế, sẽ nâng cấp hợp lý hơn vào Tiểu Thạch sau này nếu có điều kiện) — chỉ còn tìm kiếm theo từ khoá, ô tìm kiếm được làm nổi bật hơn (to hơn, có icon kính lúp) ở đầu trang.

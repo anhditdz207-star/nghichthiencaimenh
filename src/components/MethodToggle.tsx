@@ -14,13 +14,14 @@ export default function MethodToggle({ value, onChange }: MethodToggleProps) {
       />
       <button
         onClick={() => onChange("tamdong")}
-        className={`relative z-10 px-3 py-1.5 rounded-full transition-colors ${!isMaiHoa ? "text-gold-400" : "text-paper-100/50"}`}
+        className={`relative z-10 px-2.5 sm:px-3 py-1.5 rounded-full transition-colors whitespace-nowrap ${!isMaiHoa ? "text-gold-400" : "text-paper-100/50"}`}
       >
-        Tam Đồng Pháp
+        <span className="sm:hidden">Tam Đồng</span>
+        <span className="hidden sm:inline">Tam Đồng Pháp</span>
       </button>
       <button
         onClick={() => onChange("maihoa")}
-        className={`relative z-10 px-3 py-1.5 rounded-full transition-colors ${isMaiHoa ? "text-gold-400" : "text-paper-100/50"}`}
+        className={`relative z-10 px-2.5 sm:px-3 py-1.5 rounded-full transition-colors whitespace-nowrap ${isMaiHoa ? "text-gold-400" : "text-paper-100/50"}`}
       >
         Mai Hoa
       </button>

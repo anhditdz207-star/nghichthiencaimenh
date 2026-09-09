@@ -79,7 +79,7 @@ export default function App() {
       </main>
 
       <footer className="border-t border-gold-700/20 mt-8">
-        <div className="max-w-5xl mx-auto px-6 py-4 text-[11px] text-paper-100/40 text-center italic space-y-1">
+        <div className="max-w-5xl mx-auto px-6 pt-4 pb-24 sm:pb-6 text-[11px] text-paper-100/40 text-center italic space-y-1">
           <p>Nghịch Thiên Cải Mệnh - Thuận Thiên Giúp Thế - Nhất Tâm Định Vạn Sự</p>
           <p>by Nguyễn Trung Nguyên</p>
         </div>

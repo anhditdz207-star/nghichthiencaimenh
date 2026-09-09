@@ -83,8 +83,8 @@ export default function GieoQuePage() {
   const sharedChanged = shared?.changedBinary ? getHexagramByBinary(shared.changedBinary) : undefined;
 
   return (
-    <div className="relative max-w-2xl mx-auto px-4 sm:px-6 py-4 sm:py-6 text-paper-50">
-      <div className="absolute top-3 right-3 sm:top-5 sm:right-5 z-10">
+    <div className="max-w-2xl mx-auto px-4 sm:px-6 py-4 sm:py-6 text-paper-50">
+      <div className="flex justify-end mb-2">
         <MethodToggle value={method} onChange={setMethod} />
       </div>
 

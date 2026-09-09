@@ -13,19 +13,10 @@ const VERDICT_STYLE: Record<FengShuiVerdict, string> = {
 export default function PhongThuyPage() {
   const [query, setQuery] = useState("");
   const [activeGroup, setActiveGroup] = useState<string>(FENGSHUI_GROUPS[0]);
-  const [photo, setPhoto] = useState<string | null>(null);
 
   const searchResults = useMemo(() => searchFengShui(query), [query]);
   const groupResults = useMemo(() => rulesByGroup(activeGroup), [activeGroup]);
   const showing = query.trim() ? searchResults : groupResults;
-
-  function handlePhoto(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = () => setPhoto(reader.result as string);
-    reader.readAsDataURL(file);
-  }
 
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-10 text-paper-50">
@@ -34,25 +25,22 @@ export default function PhongThuyPage() {
         Tra cứu nhanh các tình huống thường gặp trong nhà ở
       </p>
 
-      <div className="bg-ink-900/60 border border-gold-700/40 rounded-lg p-4 sm:p-5 mb-6">
-        <label className="text-sm text-paper-100/70 block mb-2">Ảnh tham khảo (không tự động phân tích)</label>
-        <input type="file" accept="image/*" onChange={handlePhoto} className="text-xs text-paper-100/70" />
-        {photo && (
-          <img src={photo} alt="Ảnh không gian tham khảo" className="mt-3 rounded-md max-h-56 object-cover w-full" />
-        )}
-        <p className="text-[11px] text-paper-100/40 mt-3 italic">
-          Ảnh chỉ hiển thị để bạn đối chiếu bằng mắt — trang này chưa tự nhận diện vật thể trong ảnh.
-          Hãy nhìn ảnh rồi tìm/chọn đúng tình huống bên dưới.
-        </p>
-      </div>
-
-      <div className="mb-5">
+      <div className="relative mb-5">
+        <svg
+          viewBox="0 0 24 24"
+          width="18" height="18"
+          className="absolute left-4 top-1/2 -translate-y-1/2 text-gold-500/60 pointer-events-none"
+          fill="none" stroke="currentColor" strokeWidth="2"
+        >
+          <circle cx="11" cy="11" r="7" />
+          <line x1="21" y1="21" x2="16.65" y2="16.65" />
+        </svg>
         <input
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Gõ tình huống, ví dụ: cây trước cửa, gương đối giường…"
-          className="w-full bg-ink-800 border border-gold-700/40 rounded-md px-4 py-2.5 text-paper-50 focus:outline-none focus:border-gold-500"
+          placeholder="Tìm kiếm: cây trước cửa, gương đối giường, bếp đối vệ sinh…"
+          className="w-full bg-ink-800 border border-gold-700/40 rounded-full pl-11 pr-4 py-3 text-paper-50 focus:outline-none focus:border-gold-500 text-sm sm:text-base"
         />
       </div>
 
