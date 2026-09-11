@@ -34,6 +34,13 @@ describe("tinhMaiHoa", () => {
       }
     }
   });
+
+  it("hào động = tổng 2 số quái đã rút gọn mod 6, không phải tổng thô Y+M+D+H mod 6", () => {
+    // Y=3,M=4,D=5,H=2: upper=(3+4+5)%8=4 ; lower=(4+2)%8=6 ; hào động=(4+6)%6=4
+    // (nếu dùng tổng thô 3+4+5+2=14, 14%6=2 — SAI, hai cách cho kết quả khác nhau ở bộ số này)
+    const r = tinhMaiHoa(3, 4, 5, 2);
+    expect(r.movingLine).toBe(4);
+  });
 });
 
 describe("xetTheDung", () => {

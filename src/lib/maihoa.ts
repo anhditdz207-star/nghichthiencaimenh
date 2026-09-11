@@ -38,9 +38,11 @@ export interface MaiHoaResult {
 
 /**
  * Lập quẻ Mai Hoa Dịch Số theo thời gian.
- * Công thức: Thượng quái = (Năm chi + Tháng + Ngày) mod 8 (dư 0 lấy 8, số Tiên Thiên).
- *            Hạ quái = (Năm chi + Tháng + Ngày + Giờ chi) mod 8.
- *            Hào động = tổng trên mod 6 (dư 0 lấy hào 6).
+ * Công thức (theo Thiệu Khang Tiết, đối chiếu nhiều nguồn độc lập):
+ *   Thượng quái = (Năm chi + Tháng + Ngày) mod 8 (dư 0 lấy 8, số Tiên Thiên).
+ *   Hạ quái = (số Thượng quái + Giờ chi) mod 8 (dư 0 lấy 8).
+ *   Hào động = (số Thượng quái + số Hạ quái) mod 6 (dư 0 lấy hào 6) — dùng 2 số quái đã rút gọn,
+ *   KHÔNG dùng tổng thô Năm+Tháng+Ngày+Giờ (hai cách cho kết quả khác nhau trong đa số trường hợp).
  */
 export function tinhMaiHoa(
   yearChiIndex: number, // Tý=1...Hợi=12
@@ -49,13 +51,12 @@ export function tinhMaiHoa(
   hourChiIndex: number // Tý=1...Hợi=12
 ): MaiHoaResult {
   const sumYMD = yearChiIndex + lunarMonth + lunarDay;
-  const sumAll = sumYMD + hourChiIndex;
 
   let upperNumber = sumYMD % 8;
   if (upperNumber === 0) upperNumber = 8;
-  let lowerNumber = sumAll % 8;
+  let lowerNumber = (upperNumber + hourChiIndex) % 8;
   if (lowerNumber === 0) lowerNumber = 8;
-  let movingLine = sumAll % 6;
+  let movingLine = (upperNumber + lowerNumber) % 6;
   if (movingLine === 0) movingLine = 6;
 
   const upperTrigram = trigramByNumber(upperNumber);

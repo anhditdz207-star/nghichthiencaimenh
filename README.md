@@ -82,3 +82,8 @@ npm test        # vitest: thuật toán âm lịch + tam đồng pháp
 - Sửa lỗi tràn viên nang chuyển phương pháp (2 nút chữ dài ngắn khác nhau nhưng thanh trượt ép cứng 50/50) — bỏ kiểu trượt, tô màu trực tiếp theo nút đang chọn.
 - Thêm dòng "Tam Đồng Pháp mang tính tham khảo, không phải kết luận cố định." ở cuối phần Gieo Quẻ, đồng bộ với dòng tương tự đã có ở Mai Hoa.
 - **Tối ưu bundle JS**: tách nhỏ từng trang bằng `React.lazy` + `Suspense` (Gieo Quẻ, Tra Cứu, Lịch Âm, Bản Mệnh, Phong Thủy, Mai Hoa, Tiểu Thạch đều tải riêng khi cần). Bundle chính giảm từ ~500KB xuống còn ~200KB (gzip ~64KB), không còn cảnh báo "chunk quá lớn" khi build.
+
+- **Kiểm chứng Mai Hoa Dịch Số với nhiều nguồn** (Wikipedia, vugioi.com, hocvienlyso.org, nguồn Hán ngữ Chinese Text Project/zhihu): xác nhận quy tắc Thể/Dụng hiện tại đúng (quái chứa hào động là Dụng, quái còn lại là Thể — phát hiện 2 bài blog Việt ghi ngược, đã loại). Sửa lại công thức tính hào động cho khớp đa số nguồn: dùng tổng 2 số quái đã rút gọn (không phải tổng thô năm+tháng+ngày+giờ) — 2 cách cho kết quả khác nhau ở đa số trường hợp, đã thêm test khoá lại đúng công thức mới.
+- Mai Hoa: thêm ô "Họ tên" (không bắt buộc) — chỉ hiển thị "Quẻ của [tên]", không dùng để tính toán (để giữ đúng độ tin cậy của công thức thời gian đã kiểm chứng, tránh trộn thêm phương pháp chiết tự chưa được xác minh kỹ).
+
+- **Thông báo cập nhật**: sửa `sw.js` không tự áp dụng bản mới ngay nữa (bỏ `skipWaiting()` tự động) — khi có bản mới, hiện banner vàng ở đầu trang "Đã có bản cập nhật mới" kèm nút "Tải lại", người dùng chủ động chọn lúc nào cập nhật thay vì bị tự động làm mới giữa chừng khi đang thao tác.
