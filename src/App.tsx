@@ -2,7 +2,6 @@ import { lazy, Suspense, useState } from "react";
 import TaijiSymbol from "./components/Taiji";
 import MusicToggle from "./components/MusicToggle";
 import IntroSplash from "./components/IntroSplash";
-import UpdateBanner from "./components/UpdateBanner";
 
 const GieoQuePage = lazy(() => import("./pages/GieoQuePage"));
 const TraCuuPage = lazy(() => import("./pages/TraCuuPage"));
@@ -93,7 +92,6 @@ export default function App() {
       </Suspense>
       <MusicToggle />
       {!entered && <IntroSplash onEnter={handleEnter} />}
-      <UpdateBanner />
     </div>
   );
 }

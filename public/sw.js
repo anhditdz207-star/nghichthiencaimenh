@@ -1,14 +1,7 @@
 const CACHE = "hoanvan-v3";
 
 self.addEventListener("install", () => {
-  // Không tự skipWaiting nữa — để bản mới "chờ", chỉ áp dụng khi người dùng
-  // chủ động bấm "Tải lại" ở banner thông báo cập nhật.
-});
-
-self.addEventListener("message", (event) => {
-  if (event.data?.type === "SKIP_WAITING") {
-    self.skipWaiting();
-  }
+  self.skipWaiting();
 });
 
 self.addEventListener("activate", (event) => {

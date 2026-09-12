@@ -13,7 +13,7 @@ const MUC_DO_STYLE: Record<string, string> = {
 
 export default function MaiHoaPage() {
   const now = new Date();
-  const [hoTen, setHoTen] = useState("");
+  const [question, setQuestion] = useState("");
   const [useNow, setUseNow] = useState(true);
   const [dateStr, setDateStr] = useState(now.toISOString().slice(0, 10));
   const [hour, setHour] = useState(now.getHours());
@@ -45,13 +45,14 @@ export default function MaiHoaPage() {
       </p>
 
       <div className="bg-ink-900/60 border border-gold-700/40 rounded-lg p-4 mb-6 max-w-sm mx-auto">
-        <label className="text-xs text-paper-100/50 block mb-1.5">Họ tên (không bắt buộc, chỉ để hiển thị)</label>
+        <p className="italic text-gold-500/80 text-sm text-center mb-0.5">Nhất Niệm Sở Cầu</p>
+        <label className="text-xs text-paper-100/50 block mb-1.5 text-center">Điều bạn muốn hỏi (tự niệm trong lòng)</label>
         <input
           type="text"
-          value={hoTen}
-          onChange={(e) => setHoTen(e.target.value)}
-          placeholder="Tên của bạn…"
-          className="w-full bg-ink-800 border border-gold-700/40 rounded-full px-4 py-2 text-sm text-paper-50 focus:outline-none focus:border-gold-500 mb-3"
+          value={question}
+          onChange={(e) => setQuestion(e.target.value)}
+          placeholder="Việc muốn hỏi (không bắt buộc)…"
+          className="w-full bg-ink-800 border border-gold-700/40 rounded-full px-4 py-2 text-sm text-center text-paper-50 focus:outline-none focus:border-gold-500 mb-3"
         />
         <div className="flex gap-2 mb-3 text-xs">
           <button
@@ -94,8 +95,8 @@ export default function MaiHoaPage() {
 
       {primary && (
         <>
-          {hoTen.trim() && (
-            <p className="text-center text-sm text-gold-500/80 italic mb-3">Quẻ của {hoTen.trim()}</p>
+          {question.trim() && (
+            <p className="text-center text-sm text-paper-100/60 italic mb-3">Việc hỏi: "{question.trim()}"</p>
           )}
         <div className="flex flex-col md:flex-row gap-10 justify-center items-center mb-8">
           <div className="text-center">
