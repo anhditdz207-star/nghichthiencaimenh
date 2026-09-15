@@ -1,6 +1,6 @@
 // Gọi qua Cloudflare Worker (giấu API key Gemini) — chỉ dùng khi dữ liệu có sẵn không trả lời được.
 // Điền URL Worker của bạn vào đây sau khi deploy theo hướng dẫn ở /cloudflare-worker/README.md.
-const WORKER_URL = "[https://tieuthachai.anhditdz207.workers.dev](https://tieuthachai.anhditdz207.workers.dev)";
+const WORKER_URL = "https://tieuthachai.anhditdz207.workers.dev";
 
 export async function askAI(question: string): Promise<string | null> {
   if (!WORKER_URL) return null;
