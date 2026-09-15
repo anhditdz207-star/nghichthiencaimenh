@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { askAssistant, randomGreeting } from "../lib/assistant";
+import { askAI, isAiConfigured } from "../lib/aiFallback";
 
 interface Message {
   id: number;
@@ -7,6 +8,7 @@ interface Message {
   text: string;
   sourceLabel?: string;
   link?: { url: string; label: string };
+  thinking?: boolean;
 }
 
 let nextId = 1;
@@ -25,12 +27,35 @@ export default function ChatWidget() {
     if (open) bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, open]);
 
-  function handleSend(e: React.FormEvent) {
+  async function handleSend(e: React.FormEvent) {
     e.preventDefault();
     const text = input.trim();
     if (!text) return;
     const userMsg: Message = { id: nextId++, role: "user", text };
     const answer = askAssistant(text);
+    const isFallback = Boolean(answer.link);
+
+    if (isFallback && isAiConfigured()) {
+      const thinkingId = nextId++;
+      setMessages((prev) => [
+        ...prev,
+        userMsg,
+        { id: thinkingId, role: "bot", text: "Để mình nghĩ chút…", thinking: true },
+      ]);
+      setInput("");
+      const aiText = await askAI(text);
+      setMessages((prev) =>
+        prev.map((m) =>
+          m.id === thinkingId
+            ? aiText
+              ? { id: thinkingId, role: "bot", text: aiText }
+              : { id: thinkingId, role: "bot", text: answer.text, link: answer.link }
+            : m
+        )
+      );
+      return;
+    }
+
     const botMsg: Message = { id: nextId++, role: "bot", text: answer.text, sourceLabel: answer.sourceLabel, link: answer.link };
     setMessages((prev) => [...prev, userMsg, botMsg]);
     setInput("");
@@ -68,7 +93,15 @@ export default function ChatWidget() {
                       : "bg-ink-900/70 border border-gold-700/30 text-paper-100/90 rounded-bl-sm"
                   }`}
                 >
-                  {m.text}
+                  {m.thinking ? (
+                    <span className="inline-flex gap-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-gold-500/70 animate-bounce [animation-delay:-0.3s]" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-gold-500/70 animate-bounce [animation-delay:-0.15s]" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-gold-500/70 animate-bounce" />
+                    </span>
+                  ) : (
+                    m.text
+                  )}
                   {m.sourceLabel && <p className="text-[10px] text-jade-400 mt-1.5">Nguồn: {m.sourceLabel}</p>}
                   {m.link && (
                     <a

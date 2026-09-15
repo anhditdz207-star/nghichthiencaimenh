@@ -84,7 +84,13 @@ npm test        # vitest: thuật toán âm lịch + tam đồng pháp
 - **Tối ưu bundle JS**: tách nhỏ từng trang bằng `React.lazy` + `Suspense` (Gieo Quẻ, Tra Cứu, Lịch Âm, Bản Mệnh, Phong Thủy, Mai Hoa, Tiểu Thạch đều tải riêng khi cần). Bundle chính giảm từ ~500KB xuống còn ~200KB (gzip ~64KB), không còn cảnh báo "chunk quá lớn" khi build.
 
 - **Kiểm chứng Mai Hoa Dịch Số với nhiều nguồn** (Wikipedia, vugioi.com, hocvienlyso.org, nguồn Hán ngữ Chinese Text Project/zhihu): xác nhận quy tắc Thể/Dụng hiện tại đúng (quái chứa hào động là Dụng, quái còn lại là Thể — phát hiện 2 bài blog Việt ghi ngược, đã loại). Sửa lại công thức tính hào động cho khớp đa số nguồn: dùng tổng 2 số quái đã rút gọn (không phải tổng thô năm+tháng+ngày+giờ) — 2 cách cho kết quả khác nhau ở đa số trường hợp, đã thêm test khoá lại đúng công thức mới.
-- Mai Hoa: thêm ô "Họ tên" (không bắt buộc) — chỉ hiển thị "Quẻ của [tên]", không dùng để tính toán (để giữ đúng độ tin cậy của công thức thời gian đã kiểm chứng, tránh trộn thêm phương pháp chiết tự chưa được xác minh kỹ).
+- Mai Hoa: thêm ô "Điều bạn muốn hỏi" (kèm "*Nhất Niệm Sở Cầu*", không bắt buộc) — chỉ hiển thị "Việc hỏi: ...", không dùng để tính toán, đồng bộ đúng kiểu với Tam Đồng Pháp.
 
 - **Thông báo cập nhật**: đã thử banner hỏi người dùng, nhưng theo yêu cầu đã đảo lại **về tự động cập nhật** (service worker tự `skipWaiting()` như ban đầu) — không hỏi, không banner.
-- Mai Hoa: đổi ô "Họ tên" thành **"Điều bạn muốn hỏi"** (kèm "*Nhất Niệm Sở Cầu*") — đồng bộ đúng kiểu với Tam Đồng Pháp, hiện "Việc hỏi: ..." phía trên kết quả thay vì "Quẻ của [tên]".
+- **Nâng cấp Tiểu Thạch với AI (tuỳ chọn, cần tự cấu hình)**: khi dữ liệu có sẵn (FAQ + Phong Thủy) không
+  trả lời được, Tiểu Thạch có thể gọi qua **Gemini API** (miễn phí) để tổng hợp câu trả lời ngắn gọn,
+  thay vì chỉ đưa link Google. Không bắt buộc — nếu chưa cấu hình, Tiểu Thạch vẫn hoạt động như cũ
+  (thuần dữ liệu tĩnh).
+  - Code Worker giấu API key: `cloudflare-worker/worker.js`
+  - Hướng dẫn deploy từng bước: `cloudflare-worker/README.md`
+  - Sau khi deploy, dán URL Worker vào `src/lib/aiFallback.ts` (biến `WORKER_URL`)
